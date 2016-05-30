@@ -1,5 +1,5 @@
 import datetime
-from flask        import render_template, Blueprint
+from flask        import Blueprint, render_template
 from sqlalchemy   import func
 from webapp       import models
 from webapp.forms import RegisterForm
@@ -12,8 +12,14 @@ sb_blueprint = Blueprint(
 )
 
 @sb_blueprint.route("/")
-@sb_blueprint.route("/<int:page>")
-def home(page=1):
-    return render_template(
-        "home.html",
-    )
+@sb_blueprint.route("/home")
+def home():
+    return render_template("home.html")
+
+@sb_blueprint.route("/login")
+def login():
+    return render_template("login.html")
+
+@sb_blueprint.route("/register")
+def register():
+    return render_template("register.html")
