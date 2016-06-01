@@ -1,4 +1,4 @@
-from flask_wtf          import Form
+from flask_wtf          import Form, RecaptchaField
 from webapp.models      import User
 from wtforms            import BooleanField, PasswordField, StringField
 from wtforms.validators import DataRequired, EqualTo, Length
@@ -31,18 +31,19 @@ class LoginForm(Form):
         return True
 
 class RegisterForm(Form):
-    email = StringField("Email Address", [
-        DataRequired(),
-        Length(max=255)
-    ])
     confirm = PasswordField("Confirm Password", [
         DataRequired(),
         EqualTo("password")
+    ])
+    email = StringField("Email Address", [
+        DataRequired(),
+        Length(max=255)
     ])
     password = PasswordField("Password", [
         DataRequired(),
         Length(min=8)
     ])
+    recaptcha = RecaptchaField()
     username = StringField("Username", [
         DataRequired(),
         Length(max=255)

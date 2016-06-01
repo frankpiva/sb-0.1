@@ -20,6 +20,11 @@ def login():
         return redirect(url_for('sb.home'))
     return render_template("login.html", form=form)
 
+@main_blueprint.route("/logout", methods=["GET", "POST"])
+def logout():
+    flash("You have been logged out.", category="success")
+    return redirect(url_for(".home"))
+
 @main_blueprint.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterForm()

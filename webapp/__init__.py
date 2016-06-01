@@ -1,7 +1,8 @@
-from controllers.sb   import sb_blueprint
-from controllers.main import main_blueprint
-from flask            import Flask
-from models           import db
+from controllers.sb    import sb_blueprint
+from controllers.main  import main_blueprint
+from flask             import Flask
+from webapp.models     import db
+from webapp.extensions import bcrypt
 
 def create_app(object_name):
     """
@@ -15,6 +16,7 @@ def create_app(object_name):
     app.config.from_object(object_name)
 
     db.init_app(app)
+    bcrypt.init_app(app)
 
     app.register_blueprint(main_blueprint)
     app.register_blueprint(sb_blueprint)

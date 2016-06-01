@@ -1,4 +1,5 @@
 from flask.ext.sqlalchemy import SQLAlchemy
+from webapp.extensions    import bcrypt
 
 db = SQLAlchemy()
 
@@ -15,15 +16,14 @@ class User(db.Model):
 
     def __repr__(self):
         return "USER RECORD\n" \
-               " id:       {}\n" \
-               " email:    {}\n" \
-               " password: {}\n" \
-               " username: {}>" \
+               "  id:       {}\n" \
+               "  email:    {}\n" \
+               "  password: {}\n" \
+               "  username: {}\n" \
                "".format(self.id, self.email, self.password, self.username)
 
-    # TODO: FIX THIS METHOD TO USE BCRYPT DON'T FORGET TO SETUP AND IMPORT
     def check_password(self, password):
-        return True
+        return bcrypt.check_password_hash(self.password, password)
 
     def set_password(self, password):
         self.password = bcrypt.generate_password_hash(password)
